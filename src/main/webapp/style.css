@@ -1,0 +1,41 @@
+h1{
+    width: 50%;
+    margin: auto;
+    margin-top: 10%;
+    text-align: center;
+}
+
+#tablesDiv{
+    margin-left: 1%;
+}
+
+#studentsDiv{
+    margin-left: 1%;
+    height: 21px;
+    line-height: 21px;
+}
+
+#goBack{
+    display: none;
+}
+
+#mainDiv{
+    justify-content: center;
+    margin: auto;
+    display: flex;
+    margin-left: 25%;
+    margin-top: 5%;
+    width: 50%
+}
+
+#startButton{
+    display: none;
+    margin-top: 2%;
+    margin-left: 48.5%;
+}
+
+#resultName, #count_num{
+    margin-top: 2%;
+    margin-left: 1%;
+    text-align: center;
+}

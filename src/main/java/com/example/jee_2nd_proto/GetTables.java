@@ -10,24 +10,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet("/MyJDBCServlet")
-public class MyJDBC extends HttpServlet
+@WebServlet("/GetTablesServlet")
+public class GetTables extends HttpServlet
 {
     static ArrayList<String> nameArray = new ArrayList<>();
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
             throws ServletException, IOException
     {
-        String tableName = req.getParameter("tableName");
-        getNamesFromSQL(tableName);
+        getTablesFromSQL();
         resp.setContentType("text/plain");
         resp.setCharacterEncoding("utf-8");
         String listString = new Gson().toJson(nameArray);
         resp.getWriter().write(listString);
     }
 
-    public static void getNamesFromSQL(String tableName)
+    public static void getTablesFromSQL()
     {
         nameArray.clear();
         try {
@@ -38,14 +37,14 @@ public class MyJDBC extends HttpServlet
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/students", "root", "");
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306", "root", "");
 
             Statement statement = connection.createStatement();
 
-            ResultSet resultSet = statement.executeQuery("SELECT * FROM " + tableName + " ORDER BY name ASC");
+            ResultSet resultSet = statement.executeQuery("SELECT table_name FROM information_schema.tables WHERE table_schema = 'students'");
 
             while (resultSet.next()) {
-                nameArray.add(resultSet.getString("name"));
+                nameArray.add(resultSet.getString("table_name"));
             }
 
         } catch (Exception e)
